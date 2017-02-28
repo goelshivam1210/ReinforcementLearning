@@ -62,8 +62,8 @@ class ValueIteration():
 
     def evaluate_policy(self):
         V_s = []
-        theta = 0.01
-        gamma = 1
+        theta = 0.001
+        gamma = 0.99
         while True:
 
             delta = 0

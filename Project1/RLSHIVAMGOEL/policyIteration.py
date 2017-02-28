@@ -1,7 +1,7 @@
 import time
 import sys
 sys.path.append("../")
-from envs.mdp_gridworld import MDPGridworldEnv
+# from envs.mdp_gridworld import MDPGridworldEnv
 import random
 from operator import itemgetter
 import numpy as np
@@ -63,7 +63,7 @@ class PolicyIteration():
     def evaluate_policy(self):
         V_s = []
         while True:
-            delta = 0
+            delta = 0.0000000001
             for state in range(env.observation_space.n):
                 V_s_i = 0
                 value_old = self.value[state]
@@ -126,8 +126,8 @@ class PolicyIteration():
 def main():
     pi = PolicyIteration()
 
-    G = [0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1]
-    T = [0.001, 0.002, 0.003, 0.004, 0.005]
+    G = [0.9 ]
+    T = [0.001]
     file = open('Data2.txt', 'w')
     file.write("Frozen Lake (Stochastic Environment)\n")
     file.write("Gamma      Theta     Averge_Reward      Count\n")
@@ -145,6 +145,8 @@ def main():
             # time.sleep(1)
             obs = env.reset()
             print "Policy Stable---------->>>>>>> {}".format(policy_stable)
+            print "Optimum Policy _____>>>>{}".format(pi.policy)
+            time.sleep(1)
             print "Count------------------->>>>>> {}".format(pi.count)
             reward_i = 0
             rewards = 0
@@ -154,6 +156,7 @@ def main():
             for u in range(100):
                 for t in range(1000):
                     env.render()
+                    time.sleep(1)
                     action = pi.policy[obs]
                     print ("The action is {}".format(action))
                     obs2, reward, terminal, _ = env.step(action)
